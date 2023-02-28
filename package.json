@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "start": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "@unocss/nuxt": "^0.50.1",
+    "nuxt": "^3.2.2",
+    "unocss": "^0.50.1"
+  },
+  "dependencies": {
+    "@unocss/reset": "^0.50.1"
+  }
+}
