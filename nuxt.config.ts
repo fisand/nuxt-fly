@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     '@unocss/nuxt',
+    'nuxt-monaco-editor',
   ],
   unocss: {
     uno: true,

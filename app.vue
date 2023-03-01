@@ -3,6 +3,7 @@ import { WebContainer } from '@webcontainer/api'
 import { files } from './files'
 
 const data = await $fetch('/api/hello')
+const codeContent = ref('')
 
 onMounted(() => {
   let webcontainerInstance: WebContainer
@@ -39,25 +40,12 @@ onMounted(() => {
     await webcontainerInstance.fs.writeFile('/index.js', content)
   }
 
-  document.querySelector('#webContainer')!.innerHTML = `
-  <div class="container px-4">
-    <div class="editor">
-      <textarea>I am a textarea</textarea>
-    </div>
-    <div class="preview">
-      <iframe src="loading.html"></iframe>
-    </div>
-  </div>
-`
   const iframeEl = document.querySelector('iframe')!
 
-  const textareaEl = document.querySelector('textarea')!
-
   ;(async () => {
-    console.log('ok')
-    textareaEl.value = files['index.js'].file.contents
-    textareaEl.addEventListener('input', (e: any) => {
-      writeIndexJS(e.currentTarget!.value)
+    codeContent.value = files['index.js'].file.contents
+    watch(codeContent, (value) => {
+      writeIndexJS(value)
     })
 
     // Call only once
@@ -76,7 +64,14 @@ onMounted(() => {
 
 <template>
   <div class="p-4 font-bold underline underline-current cursor-pointer">My first Nuxt3 App {{ data.data.message }}</div>
-  <div id="webContainer"></div>
+  <div class="container m-auto !h-400px">
+    <div class="editor">
+      <MonacoEditor class="h-100% border border-#ccc border-2" v-model="codeContent" lang="javascript" />
+    </div>
+    <div class="preview">
+      <iframe src="loading.html" class="h-100%"></iframe>
+    </div>
+  </div>
 </template>
 
 <style>
