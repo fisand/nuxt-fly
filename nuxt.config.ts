@@ -6,5 +6,13 @@ export default defineNuxtConfig({
   unocss: {
     uno: true,
     icons: true
+  },
+  routeRules: {
+    '/**': {
+      headers: {
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Cross-Origin-Opener-Policy': 'same-origin'
+      }
+    }
   }
 })

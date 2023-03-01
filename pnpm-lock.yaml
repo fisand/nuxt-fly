@@ -3,11 +3,13 @@ lockfileVersion: 5.4
 specifiers:
   '@unocss/nuxt': ^0.50.1
   '@unocss/reset': ^0.50.1
+  '@webcontainer/api': ^1.0.2
   nuxt: ^3.2.2
   unocss: ^0.50.1
 
 dependencies:
   '@unocss/reset': 0.50.1
+  '@webcontainer/api': 1.0.2
 
 devDependencies:
   '@unocss/nuxt': 0.50.1
@@ -1633,6 +1635,10 @@ packages:
       '@unhead/vue': 1.1.14_vue@3.2.47
       vue: 3.2.47
     dev: true
+
+  /@webcontainer/api/1.0.2:
+    resolution: {integrity: sha512-JyJSE/EuNmbv2l9M+GE254Z/s0A9Hma8gtc71co6ZznpCr1UyB70556xZapbd8fWcjOTb1sLGb0GnRx9Ofp9sA==}
+    dev: false
 
   /abbrev/1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
