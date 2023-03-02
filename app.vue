@@ -71,7 +71,9 @@ onMounted(() => {
     </div>
     <div class="px-4 grid grid-cols-2 m-auto h-400px gap-4">
       <div class="editor border border-#eee border-1 rounded overflow-hidden">
-        <MonacoEditor class="h-full" v-model="codeContent" lang="javascript" />
+        <MonacoEditor class="h-full" v-model="codeContent" lang="javascript" :options="{
+          automaticLayout: true,
+        }" />
       </div>
       <div class="preview flex flex-col justify-center items-center border-#eee border-1 rounded overflow-auto">
         <span v-show="!ready" class="w-10 h-10 text-green-500 i-line-md:downloading-loop" />
