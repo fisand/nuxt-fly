@@ -4,6 +4,7 @@ import { files } from './files'
 
 const data = await $fetch('/api/hello')
 const codeContent = ref('')
+const ready = ref(false)
 
 onMounted(() => {
   let webcontainerInstance: WebContainer
@@ -28,6 +29,7 @@ onMounted(() => {
 
     // Wait for `server-ready` event
     webcontainerInstance.on('server-ready', (port, url) => {
+      ready.value = true
       iframeEl.src = url
     })
   }
@@ -63,45 +65,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="p-4 font-bold underline underline-current cursor-pointer">My first Nuxt3 App {{ data.data.message }}</div>
-  <div class="container m-auto !h-400px">
-    <div class="editor">
-      <MonacoEditor class="h-100% border border-#ccc border-2" v-model="codeContent" lang="javascript" />
+  <NuxtLayout>
+    <div class="p-4 font-bold cursor-pointer">
+      My first Nuxt3 App! <span class="text-green-500">{{ data.data.message }}</span>
     </div>
-    <div class="preview">
-      <iframe src="loading.html" class="h-100%"></iframe>
+    <div class="px-4 grid grid-cols-2 m-auto h-400px gap-4">
+      <div class="editor border border-#eee border-1 rounded overflow-hidden">
+        <MonacoEditor class="h-full" v-model="codeContent" lang="javascript" />
+      </div>
+      <div class="preview flex flex-col justify-center items-center border-#eee border-1 rounded overflow-auto">
+        <span v-show="!ready" class="w-10 h-10 text-green-500 i-line-md:downloading-loop" />
+        <iframe v-show="ready" src="loading.html" class="w-full h-full"></iframe>
+      </div>
     </div>
-  </div>
+  </NuxtLayout>
 </template>
-
-<style>
-iframe,
-textarea {
-  border-radius: 3px;
-}
-
-iframe {
-  height: 20rem;
-  width: 100%;
-  border: solid 2px #ccc;
-}
-
-textarea {
-  width: 100%;
-  height: 20rem;
-  resize: none;
-  background: black;
-  color: white;
-  padding: 0.5rem 1rem;
-  font-size: 120%;
-  margin-bottom: 10px;
-}
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  height: 100%;
-  width: 100%;
-}
-</style>

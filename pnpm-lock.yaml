@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@iconify-json/line-md': ^1.1.23
   '@unocss/nuxt': ^0.50.1
   '@unocss/reset': ^0.50.1
   '@webcontainer/api': ^1.0.2
@@ -14,6 +15,7 @@ dependencies:
   '@webcontainer/api': 1.0.2
 
 devDependencies:
+  '@iconify-json/line-md': 1.1.23
   '@unocss/nuxt': 0.50.1
   monaco-editor: 0.36.1
   nuxt: 3.2.2
@@ -746,6 +748,12 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@iconify-json/line-md/1.1.23:
+    resolution: {integrity: sha512-gaA4OPpHa4SuHXtCDH2LUqMN/zUL4uVvTPFnHc+Ki3mGOZg1q2yZ0+vrwnWK0iMKf7tlffprZmQ5lIZZc/Irrg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
 
   /@iconify/types/2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}

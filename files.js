@@ -3,8 +3,7 @@
 export const files = {
   'index.js': {
     file: {
-      contents: `
-import express from 'express';
+      contents: `import express from 'express';
 const app = express();
 const port = 3111;
 
