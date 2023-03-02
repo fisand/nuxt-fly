@@ -19,6 +19,7 @@
   "dependencies": {
     "@unocss/reset": "^0.50.1",
     "@webcontainer/api": "^1.0.2",
-    "xterm": "^5.1.0"
+    "xterm": "^5.1.0",
+    "xterm-addon-fit": "^0.7.0"
   }
 }

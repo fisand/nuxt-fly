@@ -11,6 +11,7 @@ const ready = ref(false)
 
 onMounted(async () => {
   const { Terminal } = await import('xterm')
+  const { FitAddon } = await import('xterm-addon-fit')
   let webcontainerInstance: WebContainer
 
   async function installDependencies(terminal: _Terminal) {
@@ -46,6 +47,30 @@ onMounted(async () => {
     })
   }
 
+  async function startShell(terminal: _Terminal) {
+    const shellProcess = await webcontainerInstance.spawn('jsh', {
+      terminal: {
+        cols: terminal.cols,
+        rows: terminal.rows,
+      },
+    })
+
+    shellProcess.output.pipeTo(
+      new WritableStream({
+        write(data) {
+          terminal.write(data)
+        },
+      })
+    )
+
+    const input = shellProcess.input.getWriter()
+    terminal.onData((data) => {
+      input.write(data)
+    })
+
+    return shellProcess
+  }
+
   /**
    * @param {string} content
    */
@@ -63,31 +88,52 @@ onMounted(async () => {
       writeIndexJS(value)
     })
 
+    const fitAddon = new FitAddon()
+
     const terminal = new Terminal({
       convertEol: true,
     })
+
+    terminal.loadAddon(fitAddon)
     terminal.open(terminalEl as HTMLElement)
 
     // Call only once
     webcontainerInstance = await WebContainer.boot()
     await webcontainerInstance.mount(files)
 
-    const exitCode = await installDependencies(terminal)
-    if (exitCode !== 0) {
-      throw new Error('Installation failed')
-    }
+    // Wait for `server-ready` event
+    webcontainerInstance.on('server-ready', (port, url) => {
+      iframeEl.src = url
+    })
 
-    startDevServer(terminal)
+    const shellProcess = await startShell(terminal)
+
+    ready.value = true
+
+    window.addEventListener('resize', () => {
+      fitAddon.fit()
+      shellProcess.resize({
+        cols: terminal.cols,
+        rows: terminal.rows,
+      })
+    })
+
+    // const exitCode = await installDependencies(terminal)
+    // if (exitCode !== 0) {
+    //   throw new Error('Installation failed')
+    // }
+
+    // startDevServer(terminal)
   })()
 })
 </script>
 
 <template>
-  <NuxtLayout>
+  <div class="h-screen flex flex-col">
     <div class="p-4 font-bold cursor-pointer">
       My first Nuxt3 App! <span class="text-green-500">{{ data.data.message }}</span>
     </div>
-    <div class="px-4 grid grid-cols-2 m-auto h-300px gap-4">
+    <div class="w-full h-280px px-4 grid grid-cols-2 m-auto gap-4">
       <div class="editor border border-#eee border-1 rounded overflow-hidden">
         <MonacoEditor
           class="h-full"
@@ -103,8 +149,8 @@ onMounted(async () => {
         <iframe v-show="ready" src="loading.html" class="w-full h-full"></iframe>
       </div>
     </div>
-    <div class="px-4">
-      <div class="terminal"></div>
+    <div class="flex-1 px-4 pb-2">
+      <div class="terminal bg-#000 px-4 py-2"></div>
     </div>
-  </NuxtLayout>
+  </div>
 </template>
