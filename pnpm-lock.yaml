@@ -9,10 +9,12 @@ specifiers:
   nuxt: ^3.2.2
   nuxt-monaco-editor: ^1.1.4
   unocss: ^0.50.1
+  xterm: ^5.1.0
 
 dependencies:
   '@unocss/reset': 0.50.1
   '@webcontainer/api': 1.0.2
+  xterm: 5.1.0
 
 devDependencies:
   '@iconify-json/line-md': 1.1.23
@@ -5235,6 +5237,10 @@ packages:
       utf-8-validate:
         optional: true
     dev: true
+
+  /xterm/5.1.0:
+    resolution: {integrity: sha512-LovENH4WDzpwynj+OTkLyZgJPeDom9Gra4DMlGAgz6pZhIDCQ+YuO7yfwanY+gVbn/mmZIStNOnVRU/ikQuAEQ==}
+    dev: false
 
   /xxhashjs/0.2.2:
     resolution: {integrity: sha512-AkTuIuVTET12tpsVIQo+ZU6f/qDmKuRUcjaqR+OIvm+aCBsZ95i7UVY5WJ9TMsSaZ0DA2WxoZ4acu0sPH+OKAw==}
